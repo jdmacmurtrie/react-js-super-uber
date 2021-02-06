@@ -1,0 +1,53 @@
+.drawer {
+  border: solid 1px black;
+  border-radius: 5px;
+
+  &-heading {
+    display: flex;
+    padding: 0 10px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 2px darkgray;
+    background-color: lightgray;
+    border-radius: 5px;
+
+    &-text {
+      margin: 10px 0;
+    }
+  }
+
+  &-chevron {
+    height: 20px;
+    width: 20px;
+    transform: rotate(90deg);
+
+    &--flip {
+      transform: rotate(270deg);
+    }
+  }
+}
+
+.input {
+  &-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    input {
+      max-width: 200px;
+      margin-top: 5px;
+    }
+
+    &--error {
+      input {
+        border-color: red;
+      }
+    }
+  }
+
+  &-error-text {
+    font-size: 10px;
+    color: red;
+  }
+}

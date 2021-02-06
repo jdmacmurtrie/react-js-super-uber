@@ -1,8 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./scss/_base.scss";
-import { HeroService } from "./heroService";
-
+import "./App.scss";
 import FormContainer from "./FormContainer";
 
 function App() {
