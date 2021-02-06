@@ -67,7 +67,7 @@ export default class InformationForm extends Component {
     const { invalidFields } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit} className="information-form">
+      <section onSubmit={this.handleSubmit} className="form">
         {this.formFields.map((field) => (
           <Input
             key={field.id}
@@ -78,7 +78,7 @@ export default class InformationForm extends Component {
           />
         ))}
         <input value="Continue" type="button" onClick={this.handleSubmit} />
-      </form>
+      </section>
     );
   }
 }

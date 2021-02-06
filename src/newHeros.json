@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Aquato",
+    "age": 16,
+    "secretIdentity": "Vade, son of Vilk",
+    "powers": [
+      "Water manipulation",
+      "Precipitation control",
+      "Strong temperature resistance"
+    ]
+  },
+  {
+    "name": "The Lloyder",
+    "age": 32,
+    "secretIdentity": "David Marcus",
+    "powers": [
+      "Acoustic manipulation",
+      "Technopathy",
+      "Enhanced strength/reflexes"
+    ]
+  },
+  {
+    "name": "The Traveler",
+    "age": 25,
+    "secretIdentity": "Brian Mack",
+    "powers": [
+      "Super speed",
+      "Photographic memory",
+      "Complete color spectrum vision"
+    ]
+  },
+  {
+    "name": "Illyria",
+    "age": "Unknown",
+    "secretIdentity": "None",
+    "powers": [
+      "Super strength",
+      "Time manipulation",
+      "Bladed weapons mastery"
+    ]
+  }
+]

@@ -1,9 +1,83 @@
 .App {
-    padding: 30px;
+  padding: 30px;
 }
 
-.information-form {
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+}
+
+.squad-information {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-table {
+  margin-top: 20px;
+
+  &-heading-item {
+    margin-bottom: 0px;
+  }
+
+  &-row {
     display: flex;
-    flex-direction: column;
-    padding: 20px;
+    justify-content: space-between;
+    font-size: 9px;
+    margin: 10px 0;
+    border-top: 1px solid black;
+    padding-top: 5px;
+  }
+}
+
+.heading-item {
+  margin-bottom: 0px;
+}
+
+.hero-name {
+  width: 120px;
+}
+
+.powers-list {
+  display: flex;
+  flex-direction: column;
+
+  &-item {
+    width: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+.number-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 9px;
+
+  input {
+    font-size: 14px;
+    display: flex;
+    border: none;
+    text-align: center;
+  }
+
+  // hide the native +/-
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  &-adjust {
+    cursor: pointer;
+
+    ::selection {
+      background-color: transparent;
+      color: #000;
+    }
+  }
 }

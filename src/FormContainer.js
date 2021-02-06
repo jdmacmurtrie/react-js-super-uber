@@ -8,7 +8,7 @@ export default class FormContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { infoComplete: true, infoDrawer: true, heroDrawer: true };
+    this.state = { infoComplete: true, infoDrawer: false, heroDrawer: true };
   }
 
   toggleDrawer = (id, status) => {
