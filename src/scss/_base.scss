@@ -11,11 +11,16 @@
 .squad-information {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 100px;
+  text-align: center;
+}
+
+.search-input {
+  margin-top: 10px;
 }
 
 .hero-table {
-  margin-top: 20px;
-
   &-heading-item {
     margin-bottom: 0px;
   }
@@ -24,9 +29,12 @@
     display: flex;
     justify-content: space-between;
     font-size: 9px;
-    margin: 10px 0;
     border-top: 1px solid black;
-    padding-top: 5px;
+    padding: 5px 5px 10px;
+
+    &:first-of-type {
+      padding: 0;
+    }
   }
 }
 

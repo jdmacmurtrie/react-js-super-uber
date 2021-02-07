@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Input from "./components/Input";
+import FormInput from "./components/FormInput";
 
 export default class InformationForm extends Component {
   constructor() {
@@ -69,7 +69,7 @@ export default class InformationForm extends Component {
     return (
       <section onSubmit={this.handleSubmit} className="form">
         {this.formFields.map((field) => (
-          <Input
+          <FormInput
             key={field.id}
             handleChange={this.handleChange}
             showError={invalidFields.includes(field.id)}

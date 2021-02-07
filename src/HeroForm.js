@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { HeroService } from "./heroService";
-import newHeroes from "./newHeros.json";
+import newHeroes from "./newHeroes.json";
 
+import FormInput from "./components/FormInput";
 import InfoBlock from "./components/InfoBlock";
 
 export default class HeroForm extends Component {
@@ -27,7 +28,7 @@ export default class HeroForm extends Component {
       },
     ];
 
-    this.state = { heroes: [], squadData: {} };
+    this.state = { heroes: [], searchInput: "", searchResults: [], squadData: {} };
   }
 
   componentDidMount() {
@@ -37,26 +38,50 @@ export default class HeroForm extends Component {
 
   mergeHeroes = (squadData) => {
     const allHeroes = [...squadData.members, ...newHeroes];
-    const heroesAsProducts = allHeroes.map((hero, index) => ({ ...hero, id: index, quantity: 0 }));
+    const heroesAsProducts = allHeroes.map((hero, index) => ({
+      ...hero,
+      id: index,
+      quantity: 0,
+    }));
 
-    this.setState({ squadData, heroes: heroesAsProducts });
+    this.setState({ squadData, heroes: heroesAsProducts, searchResults: heroesAsProducts });
   };
 
   handleChangeQuantity = (id, value) => {
     const newList = [...this.state.heroes];
     const hero = newList.find((hero) => hero.id === id);
+    console.log(typeof value);
     const newQuantity =
       hero.quantity + value < 0 || hero.quantity + value > 10
         ? hero.quantity
         : hero.quantity + value;
 
-    hero.quantity = newQuantity;
+    // remove any leading zeros
+    const trimmedQuantity = String(newQuantity).replace(/^0+/, "");
+    // set back to type Number and change value
+    hero.quantity = Number(trimmedQuantity);
 
     this.setState({ heroes: newList });
   };
 
+  handleSearch = ({ target }) => {
+    const { value } = target;
+    const { heroes } = this.state;
+
+    const filteredHeroes = heroes.filter((hero) => {
+      const keywords = hero.powers.map((power) => power.toLowerCase().split(" ")).flat();
+
+      return keywords.find((word) => word === value.toLowerCase());
+    });
+
+    const results = filteredHeroes.length ? filteredHeroes : heroes;
+    this.setState({ searchResults: results, searchInput: target.value });
+  };
+
   render() {
-    const { heroes, squadData } = this.state;
+    const { heroes, searchInput, searchResults, squadData } = this.state;
+    const list = searchResults.length < heroes.length ? searchResults : heroes;
+
     return (
       <section className="form">
         <div className={"squad-information"}>
@@ -64,13 +89,19 @@ export default class HeroForm extends Component {
             <InfoBlock key={id} heading={heading} detail={squadData[id]} />
           ))}
         </div>
+        <FormInput
+          className="search-input"
+          label="Search by Power"
+          handleChange={this.handleSearch}
+          value={searchInput}
+        />
         <div className="hero-table">
           <div className="hero-table-row ">
             <h3 className="hero-name hero-table-heading-item">Name/Secret Identity</h3>
             <h3 className="powers-list-item heading-item">Powers</h3>
             <h3>Quantity</h3>
           </div>
-          {heroes.map(({ id, name, secretIdentity, powers, quantity }, index) => (
+          {list.map(({ id, name, secretIdentity, powers, quantity }, index) => (
             <div className="hero-table-row" key={index}>
               <div className="hero-name">
                 {name}/{secretIdentity}
