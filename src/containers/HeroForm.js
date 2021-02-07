@@ -1,72 +1,48 @@
 import React, { Component } from "react";
-import { HeroService } from "./heroService";
-import newHeroes from "./newHeroes.json";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import FormInput from "./components/FormInput";
-import InfoBlock from "./components/InfoBlock";
+import { HeroService } from "../heroService";
+import { actions, selectors } from "../heroes.js";
 
-export default class HeroForm extends Component {
+import FormInput from "../components/FormInput";
+import InfoBlock from "../components/InfoBlock";
+
+class HeroForm extends Component {
   constructor() {
     super();
 
     this.squadInformation = [
-      {
-        heading: "Squad Name",
-        id: "squadName",
-      },
-      {
-        heading: "Home Town",
-        id: "homeTown",
-      },
-      {
-        heading: "Year Founded",
-        id: "formed",
-      },
-      {
-        heading: "Secret Base",
-        id: "secretBase",
-      },
+      { heading: "Squad Name", id: "squadName" },
+      { heading: "Home Town", id: "homeTown" },
+      { heading: "Year Founded", id: "formed" },
+      { heading: "Secret Base", id: "secretBase" },
     ];
 
-    this.state = { heroes: [], searchInput: "", searchResults: [], squadData: {} };
+    this.state = { searchInput: "", searchResults: [] };
   }
 
   componentDidMount() {
     const service = new HeroService();
-    service.getHeros(this.mergeHeroes);
+    service.getHeros(this.props.loadData);
   }
 
-  mergeHeroes = (squadData) => {
-    const allHeroes = [...squadData.members, ...newHeroes];
-    const heroesAsProducts = allHeroes.map((hero, index) => ({
-      ...hero,
-      id: index,
-      quantity: 0,
-    }));
-
-    this.setState({ squadData, heroes: heroesAsProducts, searchResults: heroesAsProducts });
-  };
+  componentDidUpdate(prevProps) {
+    const { heroes } = this.props;
+    if (prevProps.heroes.length !== heroes.length) {
+      this.setState({ searchResults: heroes });
+    }
+  }
 
   handleChangeQuantity = (id, value) => {
-    const newList = [...this.state.heroes];
-    const hero = newList.find((hero) => hero.id === id);
+    const { updateHero } = this.props;
 
-    const newQuantity =
-      hero.quantity + value < 0 || hero.quantity + value > 10
-        ? hero.quantity
-        : hero.quantity + value;
-
-    // remove any leading zeros
-    const trimmedQuantity = String(newQuantity).replace(/^0+/, "");
-    // set back to type Number and change value
-    hero.quantity = Number(trimmedQuantity);
-
-    this.setState({ heroes: newList });
+    updateHero(id, value);
   };
 
   handleSearch = ({ target }) => {
     const { value } = target;
-    const { heroes } = this.state;
+    const { heroes } = this.props;
 
     const filteredHeroes = heroes.filter((hero) => {
       const keywords = hero.powers.map((power) => power.toLowerCase().split(" ")).flat();
@@ -79,8 +55,8 @@ export default class HeroForm extends Component {
   };
 
   render() {
-    const { heroes, searchInput, searchResults, squadData } = this.state;
-    const list = searchResults.length < heroes.length ? searchResults : heroes;
+    const { squadData } = this.props;
+    const { searchInput, searchResults } = this.state;
 
     return (
       <section className="form">
@@ -104,9 +80,9 @@ export default class HeroForm extends Component {
           <div className="hero-table-row ">
             <h3 className="hero-name hero-table-heading-item">Name/Secret Identity</h3>
             <h3 className="powers-list-item heading-item">Powers</h3>
-            <h3>Quantity</h3>
+            <h3 className="heading-item">Quantity</h3>
           </div>
-          {list.map(({ id, name, secretIdentity, powers, quantity }, index) => (
+          {searchResults.map(({ id, name, secretIdentity, powers, quantity }, index) => (
             <div className="hero-table-row" key={index}>
               <div className="hero-name">
                 {name}/{secretIdentity}
@@ -148,3 +124,12 @@ export default class HeroForm extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({ ...actions }, dispatch);
+
+const mapStateToProps = (state) => ({
+  squadData: selectors.getSquadData(state),
+  heroes: selectors.getHeroes(state),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeroForm);

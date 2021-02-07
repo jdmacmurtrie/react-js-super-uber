@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import InformationForm from "./InformationForm";
 import HeroForm from "./HeroForm";
-import Drawer from "./components/Drawer";
+import Drawer from "../components/Drawer";
 
 export default class FormContainer extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ export default class FormContainer extends Component {
         >
           <HeroForm />
         </Drawer>
-        <Link to={{ pathname: "/summary", state: { oh: "oh" } }}>
+        <Link to="/summary">
           <button>Request Heroes</button>
         </Link>
       </Fragment>

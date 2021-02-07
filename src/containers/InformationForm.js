@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import FormInput from "./components/FormInput";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-export default class InformationForm extends Component {
+import { actions } from "../customer.js";
+
+import FormInput from "../components/FormInput";
+
+class InformationForm extends Component {
   constructor() {
     super();
 
@@ -13,16 +18,12 @@ export default class InformationForm extends Component {
     ];
 
     this.state = {
-      name: "",
-      phoneNumber: "",
-      email: "",
-      zipCode: "",
       invalidFields: [],
     };
   }
 
   handleChange = ({ target }, id) => {
-    this.setState({ [id]: target.value });
+    this.props.updateCustomer({ [id]: target.value });
   };
 
   validatePhone = (phone) => {
@@ -38,11 +39,10 @@ export default class InformationForm extends Component {
   validateZip = (zip) => (zip.length === 5 && Number(zip)) || zip.trim() === "";
 
   handleSubmit = () => {
-    const { handleSubmit } = this.props;
-    const { email, phoneNumber, zipCode } = this.state;
+    const { email, handleSubmit, phoneNumber, zipCode } = this.props;
     const requiredFields = this.formFields.filter((field) => field.required);
     const requiredErrors = requiredFields.map((field) =>
-      Boolean(this.state[field.id].trim()) ? "" : field.id
+      Boolean(this.props[field.id].trim()) ? "" : field.id
     );
 
     const phoneError = this.validatePhone(phoneNumber) ? "" : "phoneNumber";
@@ -73,7 +73,7 @@ export default class InformationForm extends Component {
             key={field.id}
             handleChange={this.handleChange}
             showError={invalidFields.includes(field.id)}
-            value={this.state[field]}
+            value={this.props[field]}
             {...field}
           />
         ))}
@@ -82,3 +82,9 @@ export default class InformationForm extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({ ...actions }, dispatch);
+
+const mapStateToProps = (state) => state.customer;
+
+export default connect(mapStateToProps, mapDispatchToProps)(InformationForm);
