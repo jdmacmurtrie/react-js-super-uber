@@ -56,15 +56,14 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  width: 50%;
 
   &-heading {
     margin: 5px 0 0 0;
-    text-decoration: underline;
+    font-size: 9px;
   }
 
   &-detail {
-    margin: 5px 0;
-    font-size: 10px;
+    margin: 0 0 10px;
+    font-size: 14px;
   }
 }

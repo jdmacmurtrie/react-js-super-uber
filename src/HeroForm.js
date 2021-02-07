@@ -23,7 +23,7 @@ export default class HeroForm extends Component {
         id: "formed",
       },
       {
-        heading: "Secret Base (declassified)",
+        heading: "Secret Base",
         id: "secretBase",
       },
     ];
@@ -50,7 +50,7 @@ export default class HeroForm extends Component {
   handleChangeQuantity = (id, value) => {
     const newList = [...this.state.heroes];
     const hero = newList.find((hero) => hero.id === id);
-    console.log(typeof value);
+
     const newQuantity =
       hero.quantity + value < 0 || hero.quantity + value > 10
         ? hero.quantity
@@ -84,9 +84,14 @@ export default class HeroForm extends Component {
 
     return (
       <section className="form">
-        <div className={"squad-information"}>
+        <div className="squad-information">
           {this.squadInformation.map(({ heading, id }) => (
-            <InfoBlock key={id} heading={heading} detail={squadData[id]} />
+            <InfoBlock
+              key={id}
+              className="squad-information-block"
+              detail={squadData[id]}
+              heading={heading}
+            />
           ))}
         </div>
         <FormInput

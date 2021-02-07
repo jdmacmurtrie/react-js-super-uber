@@ -77,7 +77,7 @@ export default class InformationForm extends Component {
             {...field}
           />
         ))}
-        <input value="Continue" type="button" onClick={this.handleSubmit} />
+        <button onClick={this.handleSubmit}>Continue</button>
       </section>
     );
   }

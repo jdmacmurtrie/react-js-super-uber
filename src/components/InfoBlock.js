@@ -1,8 +1,9 @@
 import React from "react";
+import classNames from "classnames";
 
-export default function InfoBlock({ detail, heading }) {
+export default function InfoBlock({ className, detail, heading }) {
   return (
-    <div className="info-block">
+    <div className={classNames("info-block", className)}>
       <h5 className="info-block-heading">{heading}</h5>
       <p className="info-block-detail">{detail}</p>
     </div>

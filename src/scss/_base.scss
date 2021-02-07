@@ -12,8 +12,12 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: 0 100px;
+  margin: 0 50px;
   text-align: center;
+
+  &-block {
+    width: 50%;
+  }
 }
 
 .search-input {
@@ -33,7 +37,7 @@
     padding: 5px 5px 10px;
 
     &:first-of-type {
-      padding: 0;
+      padding: 0 5px;
     }
   }
 }

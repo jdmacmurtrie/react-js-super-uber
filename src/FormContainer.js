@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import InformationForm from "./InformationForm";
 import HeroForm from "./HeroForm";
@@ -42,6 +43,9 @@ export default class FormContainer extends Component {
         >
           <HeroForm />
         </Drawer>
+        <Link to={{ pathname: "/summary", state: { oh: "oh" } }}>
+          <button>Request Heroes</button>
+        </Link>
       </Fragment>
     );
   }
