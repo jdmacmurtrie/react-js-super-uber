@@ -53,8 +53,9 @@ export const heroReducer = (state = initialState, action) => {
 
     case HERO_UPDATE:
       const { heroId, value } = action;
-      const data = { ...state.squadData };
-      const hero = data.members.find((hero) => hero.id === heroId);
+      const squadDataCopy = { ...state.squadData };
+      const membersCopy = [...squadDataCopy.members];
+      const hero = membersCopy.find((hero) => hero.id === heroId);
 
       const newQuantity =
         hero.quantity + value < 0 || hero.quantity + value > 10
@@ -68,7 +69,7 @@ export const heroReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        squadData: data,
+        squadData: { ...squadDataCopy, members: membersCopy },
       };
 
     default:
@@ -79,8 +80,12 @@ export const heroReducer = (state = initialState, action) => {
 // selectors
 const getSquadData = (state) => state.heroes.squadData;
 const getHeroes = createSelector(getSquadData, (data) => data.members || []);
+const getNumberOfHeroes = createSelector(getHeroes, (heroes) =>
+  heroes.reduce((sum, hero) => sum + hero.quantity, 0)
+);
 
 export const selectors = {
   getSquadData,
   getHeroes,
+  getNumberOfHeroes,
 };

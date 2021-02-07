@@ -1,0 +1,82 @@
+.squad-information {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 50px;
+  text-align: center;
+
+  &-block {
+    width: 50%;
+    align-items: center;
+  }
+}
+
+.search-input {
+  margin-top: 10px;
+}
+
+.hero-table {
+  &-heading-item {
+    margin: 5px 0px;
+  }
+
+  &-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    border-top: 1px solid black;
+    padding: 5px 5px 10px;
+
+    &:first-of-type {
+      padding: 0 5px;
+    }
+  }
+}
+
+.hero-name {
+  width: 120px;
+}
+
+.powers-list {
+  display: flex;
+  flex-direction: column;
+
+  &-item {
+    width: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+.number-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 9px;
+
+  &-adjust {
+    cursor: pointer;
+
+    ::selection {
+      background-color: transparent;
+      color: #000;
+    }
+  }
+
+  input {
+    font-size: 14px;
+    display: flex;
+    border: none;
+    text-align: center;
+  }
+
+  // hide the native + and -
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}

@@ -1,18 +1,26 @@
+.button {
+  @include batman-border;
+  background-color: white;
+}
+
 .drawer {
-  border: solid 1px black;
-  border-radius: 5px;
+  @include batman-border;
+  margin-bottom: 10px;
+  background-color: white;
 
   &-heading {
     display: flex;
     padding: 0 10px;
     justify-content: space-between;
     align-items: center;
-    border-bottom: solid 2px darkgray;
-    background-color: lightgray;
-    border-radius: 5px;
 
     &-text {
       margin: 10px 0;
+    }
+
+    &--open {
+      border-bottom: solid 2px black;
+      border-radius: 5px;
     }
   }
 
@@ -33,8 +41,11 @@
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: bold;
 
     input {
+      border-width: thin;
       max-width: 200px;
       margin-top: 5px;
     }
@@ -53,7 +64,6 @@
 }
 
 .info-block {
-  align-items: center;
   display: flex;
   flex-direction: column;
 

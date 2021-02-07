@@ -1,15 +1,18 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { selectors } from "../heroes.js";
 
 import InformationForm from "./InformationForm";
 import HeroForm from "./HeroForm";
+import Button from "../components/Button";
 import Drawer from "../components/Drawer";
 
-export default class FormContainer extends Component {
+class FormContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { infoComplete: true, infoDrawer: false, heroDrawer: true };
+    this.state = { infoComplete: false, infoDrawer: true, heroDrawer: false };
   }
 
   toggleDrawer = (id, status) => {
@@ -25,7 +28,9 @@ export default class FormContainer extends Component {
   };
 
   render() {
+    const { numberOfHeroes } = this.props;
     const { infoComplete, infoDrawer, heroDrawer } = this.state;
+    const formComplete = infoComplete && numberOfHeroes;
 
     return (
       <Fragment>
@@ -44,9 +49,15 @@ export default class FormContainer extends Component {
           <HeroForm />
         </Drawer>
         <Link to="/summary">
-          <button>Request Heroes</button>
+          <Button disabled={!formComplete}>Request Heroes</Button>
         </Link>
       </Fragment>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  numberOfHeroes: selectors.getNumberOfHeroes(state),
+});
+
+export default connect(mapStateToProps)(FormContainer);

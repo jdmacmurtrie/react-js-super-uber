@@ -24,7 +24,7 @@ class HeroForm extends Component {
 
   componentDidMount() {
     const service = new HeroService();
-    service.getHeros(this.props.loadData);
+    service.getHeroes(this.props.loadData);
   }
 
   componentDidUpdate(prevProps) {
@@ -33,12 +33,6 @@ class HeroForm extends Component {
       this.setState({ searchResults: heroes });
     }
   }
-
-  handleChangeQuantity = (id, value) => {
-    const { updateHero } = this.props;
-
-    updateHero(id, value);
-  };
 
   handleSearch = ({ target }) => {
     const { value } = target;
@@ -55,7 +49,7 @@ class HeroForm extends Component {
   };
 
   render() {
-    const { squadData } = this.props;
+    const { squadData, updateHero } = this.props;
     const { searchInput, searchResults } = this.state;
 
     return (
@@ -79,14 +73,17 @@ class HeroForm extends Component {
         <div className="hero-table">
           <div className="hero-table-row ">
             <h3 className="hero-name hero-table-heading-item">Name/Secret Identity</h3>
-            <h3 className="powers-list-item heading-item">Powers</h3>
-            <h3 className="heading-item">Quantity</h3>
+            <h3 className="powers-list-item hero-table-heading-item">Powers</h3>
+            <h3 className="hero-table-heading-item">Quantity</h3>
           </div>
           {searchResults.map(({ id, name, secretIdentity, powers, quantity }, index) => (
             <div className="hero-table-row" key={index}>
+              {/* {name row} */}
               <div className="hero-name">
                 {name}/{secretIdentity}
               </div>
+
+              {/* {powers row} */}
               <div className="powers-list">
                 {powers.map((power, index) => (
                   <span key={index} className="powers-list-item">
@@ -94,11 +91,10 @@ class HeroForm extends Component {
                   </span>
                 ))}
               </div>
+
+              {/* {quantity row} */}
               <div className="number-input">
-                <button
-                  className="number-input-adjust"
-                  onClick={() => this.handleChangeQuantity(id, -1)}
-                >
+                <button className="number-input-adjust" onClick={() => updateHero(id, -1)}>
                   -
                 </button>
                 <input
@@ -108,12 +104,9 @@ class HeroForm extends Component {
                   min="0"
                   max="10"
                   value={quantity}
-                  onChange={({ target }) => this.handleChangeQuantity(id, target.value)}
+                  onChange={({ target }) => updateHero(id, target.value)}
                 />
-                <button
-                  className="number-input-adjust"
-                  onClick={() => this.handleChangeQuantity(id, 1)}
-                >
+                <button className="number-input-adjust" onClick={() => updateHero(id, 1)}>
                   +
                 </button>
               </div>

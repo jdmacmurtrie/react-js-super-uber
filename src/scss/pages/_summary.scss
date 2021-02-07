@@ -1,0 +1,49 @@
+.summary {
+  &-page-heading {
+    color: $batman-yellow;
+    text-shadow: -1px 1px 2px black, 0px 0px 1px black;
+  }
+
+  &-heading {
+    margin: 0 0 15px;
+  }
+
+  &-information-container {
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+
+  &-information {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    &-block {
+      width: 50%;
+    }
+  }
+
+  &-hero-request {
+    font-size: 9px;
+  }
+
+  &-quantity {
+    display: flex;
+    margin: 5px 0;
+
+    &-name {
+      width: 200px;
+    }
+  }
+
+  &-total {
+    margin: 10px 0 5px;
+    &:first-of-type {
+      border-bottom: 1px solid black;
+      padding-bottom: 10px;
+    }
+  }
+}

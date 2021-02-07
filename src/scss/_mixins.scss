@@ -1,0 +1,4 @@
+@mixin batman-border {
+  border: solid 1px $batman-yellow;
+  box-shadow: 0 0 0 2px black;
+}
